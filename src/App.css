@@ -1,0 +1,40 @@
+.App {
+  text-align: center;
+}
+
+
+.custom-scrollbar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  background-color: #b30000;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Handle */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #312f2c;
+  border: 2px solid transparent;
+}
+
+/* Handle on hover */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: black;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type='range']::-webkit-slider-thumb {
+    width: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 15px;
+    cursor: ew-resize;
+    background: #000;
+    box-shadow: -405px 0 0 400px #605e5c;
+  }
+}
