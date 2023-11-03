@@ -124,11 +124,12 @@ const fetchCombinedServerData = async () => {
     const desiredServerIds = mongoDBServerData.map(
       (server) => server.server_id
     );
-    console.log(desiredServerIds);
+    // console.log(desiredServerIds);
+    console.log(desiredServerIds.join(","))
 
     // Make a single request to fetch information for all servers
     const response = await fetch(
-      `https://api.battlemetrics.com/servers?filter[ids][whitelist]=${desiredServerIds.join(
+      `https://api.battlemetrics.com/servers?page[size]=15&filter[ids][whitelist]=${desiredServerIds.join(
         ","
       )}`,
       {
@@ -183,6 +184,7 @@ const fetchCombinedServerData = async () => {
           type: rust_type,
           country,
           group_size,
+          wipe_cycle,
           last_wipe: formattedLastWipe,
           next_wipe:
             timeDifference > 0 ? formatTimeDifference(timeDifference) : "Now",

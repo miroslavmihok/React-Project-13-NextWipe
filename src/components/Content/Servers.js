@@ -1,9 +1,8 @@
-import React from 'react';
-import ServerContainer from './ServerContainer';
-import ReactCountryFlag from 'react-country-flag';
+import React from "react";
+import ServerContainer from "./ServerContainer";
+import ReactCountryFlag from "react-country-flag";
 
 const Servers = (props) => {
-
   return (
     <>
       <div className="relative z-10 max-w-[54%] pl-[20px] flex flex-col bg-[#222320] justify-start w-full pr-[5px] pb-[20px]">
@@ -18,7 +17,7 @@ const Servers = (props) => {
               name={server.name}
               type={server.type}
               wipe={server.last_wipe}
-              fill={'100%'}
+              fill={"100%"}
               groupsize={server.group_size}
               nextwipe={server.next_wipe}
               country={
@@ -26,8 +25,8 @@ const Servers = (props) => {
                   countryCode={server.country}
                   svg
                   style={{
-                    width: '1.5em',
-                    height: '1.5em',
+                    width: "1.5em",
+                    height: "1.5em",
                   }}
                 />
               }
