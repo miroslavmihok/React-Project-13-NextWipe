@@ -1,30 +1,108 @@
-import React from 'react';
-import FilterComponent from './FilterComponent';
-import ReactSlider from 'react-slider';
+import React, { useState } from "react";
+import FilterComponent from "./FilterComponent";
+import ReactSlider from "react-slider";
 
 const Filters = () => {
+  const [filterData, setFilterData] = useState({
+    typeFilters: {
+      "Any Type": true,
+      Vanilla: false,
+      Modded: false,
+    },
+    wipeCycleFilters: {
+      "Any Schedule": true,
+      "Twice a Week": false,
+      Weekly: false,
+      Biweekly: false,
+      Monthly: false,
+    },
+    groupSizeFilters: {
+      min: 0,
+      max: 4,
+    }
+  });
+
+  const handleTypeChange = (name) => {
+    const updatedTypeFilters = { ...filterData.typeFilters };
+
+    if (name === "Any Type") {
+      for (const filter in updatedTypeFilters) {
+        updatedTypeFilters[filter] = filter === name;
+      }
+    } else {
+      updatedTypeFilters[name] = !updatedTypeFilters[name];
+      updatedTypeFilters["Any Type"] = false;
+    }
+
+    setFilterData({
+      ...filterData,
+      typeFilters: updatedTypeFilters,
+    });
+  };
+
+  const handleWipeCycleChange = (name) => {
+    const updatedWipeCycleFilters = { ...filterData.wipeCycleFilters };
+
+    if (name === "Any Schedule") {
+      for (const filter in updatedWipeCycleFilters) {
+        updatedWipeCycleFilters[filter] = filter === name;
+      }
+    } else {
+      updatedWipeCycleFilters[name] = !updatedWipeCycleFilters[name];
+      updatedWipeCycleFilters["Any Schedule"] = false;
+    }
+
+    setFilterData({
+      ...filterData,
+      wipeCycleFilters: updatedWipeCycleFilters,
+    });
+  };
+
+  const handleGroupSizeChange = (event) => {
+    filterData.groupSizeFilters.min = event[0];
+    filterData.groupSizeFilters.max = event[1];
+    console.log(filterData);
+  }
+
   return (
     <div className="w-[20%] max-h-screen overflow-y-auto overflow-x-hidden flex flex-col justify-start bg-[#793629]/80 lg:px-[40px] 2xl:px-[60px] py-[50px] gap-[40px] overflow-hidden">
-      <FilterComponent title="SERVER TYPE" list={['Any Type', 'Vanilla', 'Moddded']} />
+      <FilterComponent
+        title="SERVER TYPE"
+        list={["Any Type", "Vanilla", "Modded"]}
+        selected={filterData.typeFilters}
+        onChange={handleTypeChange}
+      />
       {/* <FilterComponent title="COUNTRY" list={['Africa', 'Asia', 'Australia/Oceania', 'Europe', 'North America', 'South America']} /> */}
-      <FilterComponent title="WIPE SCHEDULE" list={['Any Schedule', 'Twice a Week', 'Weekly', 'Biweekly', 'Monthly']} />
+      <FilterComponent
+        title="WIPE SCHEDULE"
+        list={["Any Schedule", "Twice a Week", "Weekly", "Biweekly", "Monthly"]}
+        selected={filterData.wipeCycleFilters}
+        onChange={handleWipeCycleChange}
+      />
       <div className="text-white">
-        <h1 className="font-['Poppins'] font-[600] text-[16px] mb-[10px] text-[#E6DBD1]">MAX GROUP</h1>
+        <h1 className="font-['Poppins'] font-[600] text-[16px] mb-[10px] text-[#E6DBD1]">
+          MAX GROUP
+        </h1>
         <ReactSlider
           className=" bg-[#000]"
           thumbClassName="example-thumb"
           trackClassName="example-track bg-[#E6DBD1] h-[5px] top-[7px]"
           defaultValue={[0, 4]}
-          ariaLabel={['Lower thumb', 'Upper thumb']}
+          ariaLabel={["Lower thumb", "Upper thumb"]}
           ariaValuetext={(state) => `Thumb value ${state.valueNow}`}
           renderThumb={(props, state) => (
-            <div {...props} className="bg-[#000] font-['Poppins'] w-[20px] text-center cursor-pointer text-[12px] ">
+            <div
+              {...props}
+              className="bg-[#000] font-['Poppins'] w-[20px] text-center cursor-pointer text-[12px] "
+            >
               {state.valueNow}
             </div>
           )}
           pearling
           minDistance={1}
+          min={0}
           max={4}
+          onChange={handleGroupSizeChange}
         />
       </div>
       <div className="h-[25px] w-full flex items-center">
