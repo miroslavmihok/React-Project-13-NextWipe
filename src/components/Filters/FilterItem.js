@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 const FilterItem = ({name}) => {
     const [checked, setChecked] = useState(false);
-    
   return (
     <div className="flex py-[5px] justify-start items-center cursor-pointer w-max" onClick={() => setChecked(!checked)}>
       {checked ? (
