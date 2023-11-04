@@ -1,30 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import FilterComponent from "./FilterComponent";
 import ReactSlider from "react-slider";
+import { useFilterData } from '../../filterData/filterDataContext';
 
-const Filters = ({ onTransferFilters }) => {
-  const [filterData, setFilterData] = useState({
-    typeFilters: {
-      "Any Type": true,
-      Vanilla: false,
-      Modded: false,
-    },
-    wipeCycleFilters: {
-      "Any Schedule": true,
-      "Twice a Week": false,
-      Weekly: false,
-      Biweekly: false,
-      Monthly: false,
-    },
-    groupSizeFilters: {
-      min: 0,
-      max: 4,
-    },
-  });
-
-  useEffect(() => {
-    onTransferFilters(filterData);
-  }, [filterData]);
+const Filters = () => {
+  const { filterData, setFilterData } = useFilterData();
 
   const handleTypeChange = (name) => {
     const updatedTypeFilters = { ...filterData.typeFilters };
@@ -35,7 +15,11 @@ const Filters = ({ onTransferFilters }) => {
       }
     } else {
       updatedTypeFilters[name] = !updatedTypeFilters[name];
-      updatedTypeFilters["Any Type"] = false;
+      if (!updatedTypeFilters.Vanilla && !updatedTypeFilters.Modded) {
+        updatedTypeFilters["Any Type"] = true;
+      } else {
+        updatedTypeFilters["Any Type"] = false;
+      }
     }
 
     setFilterData({
@@ -53,7 +37,16 @@ const Filters = ({ onTransferFilters }) => {
       }
     } else {
       updatedWipeCycleFilters[name] = !updatedWipeCycleFilters[name];
-      updatedWipeCycleFilters["Any Schedule"] = false;
+      if (
+        !updatedWipeCycleFilters["Twice a Week"] &&
+        !updatedWipeCycleFilters["Weekly"] &&
+        !updatedWipeCycleFilters["Biweekly"] &&
+        !updatedWipeCycleFilters["Monthly"]
+      ) {
+        updatedWipeCycleFilters["Any Schedule"] = true;
+      } else {
+        updatedWipeCycleFilters["Any Schedule"] = false;
+      }
     }
 
     setFilterData({
