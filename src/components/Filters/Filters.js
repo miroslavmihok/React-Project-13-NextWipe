@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FilterComponent from "./FilterComponent";
 import ReactSlider from "react-slider";
 
-const Filters = () => {
+const Filters = ({ onTransferFilters }) => {
   const [filterData, setFilterData] = useState({
     typeFilters: {
       "Any Type": true,
@@ -19,8 +19,12 @@ const Filters = () => {
     groupSizeFilters: {
       min: 0,
       max: 4,
-    }
+    },
   });
+
+  useEffect(() => {
+    onTransferFilters(filterData);
+  }, [filterData]);
 
   const handleTypeChange = (name) => {
     const updatedTypeFilters = { ...filterData.typeFilters };
@@ -61,8 +65,7 @@ const Filters = () => {
   const handleGroupSizeChange = (event) => {
     filterData.groupSizeFilters.min = event[0];
     filterData.groupSizeFilters.max = event[1];
-    console.log(filterData);
-  }
+  };
 
   return (
     <div className="w-[20%] max-h-screen overflow-y-auto overflow-x-hidden flex flex-col justify-start bg-[#793629]/80 lg:px-[40px] 2xl:px-[60px] py-[50px] gap-[40px] overflow-hidden">
