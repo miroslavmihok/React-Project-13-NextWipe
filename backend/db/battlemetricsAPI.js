@@ -129,7 +129,7 @@ const fetchCombinedServerData = async () => {
 
     // Make a single request to fetch information for all servers
     const response = await fetch(
-      `https://api.battlemetrics.com/servers?page[size]=15&filter[ids][whitelist]=${desiredServerIds.join(
+      `https://api.battlemetrics.com/servers?page[size]=20&filter[ids][whitelist]=${desiredServerIds.join(
         ","
       )}`,
       {
