@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FilterComponent from "./FilterComponent";
 import ReactSlider from "react-slider";
-import { useFilterData } from '../../filterData/filterDataContext';
+import { useFilterData } from "../../filterData/filterDataContext";
 
-const Filters = () => {
+const Filters = (props) => {
   const { filterData, setFilterData } = useFilterData();
+  const { search, setSearch } = useFilterData();
 
   const handleTypeChange = (name) => {
     const updatedTypeFilters = { ...filterData.typeFilters };
@@ -55,10 +56,26 @@ const Filters = () => {
     });
   };
 
-  const handleGroupSizeChange = (event) => {
-    filterData.groupSizeFilters.min = event[0];
-    filterData.groupSizeFilters.max = event[1];
+  const handleGroupSizeChange = (e) => {
+    const updatedGroupSizeFilters = { ...filterData.groupSizeFilters };
+    updatedGroupSizeFilters.min = e[0];
+    updatedGroupSizeFilters.max = e[1];
+
+    setFilterData({
+      ...filterData,
+      groupSizeFilters: updatedGroupSizeFilters,
+    });
   };
+
+  const handleSearchBarChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  useEffect(() => {}, [search]);
+
+  const clearFiltersHandler = () => {
+    props.onClearFilters(true);
+  }
 
   return (
     <div className="w-[20%] max-h-screen overflow-y-auto overflow-x-hidden flex flex-col justify-start bg-[#793629]/80 lg:px-[40px] 2xl:px-[60px] py-[50px] gap-[40px] overflow-hidden">
@@ -98,22 +115,25 @@ const Filters = () => {
           minDistance={1}
           min={0}
           max={4}
+          value={[filterData.groupSizeFilters.min, filterData.groupSizeFilters.max]}
           onChange={handleGroupSizeChange}
         />
       </div>
       <div className="h-[25px] w-full flex items-center">
         <input
-          key={`${Math.floor(Math.random() * 1000000)}`}
+          // key={`${Math.floor(Math.random() * 1000000)}`}
           name="search-bar"
-          text="text"
-          placeholder="Search"
-          className="w-[100%] font-['Poppins'] text-[11px] bg-black/20 h-[30px] py-[5px] px-[10px] focus:border-0 select:outline-none active;outline-none"
+          type="text"
+          placeholder="Search Servers..."
+          value={search}
+          className="w-full h-[30px] font-['Poppins'] text-[0.8rem] bg-black/20 text-[#E6DBD1] py-[5px] px-[10px] focus:border-0 select:outline-none focus:outline-none placeholder:text-[#E6DBD1]"
+          onChange={handleSearchBarChange}
         />
         <div className="w-[30px] min-h-[30px] cursor-pointer bg-black/20 flex flex-col justify-center items-center px-[5px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
-            className="my-auto fill-[#727272] mb-[7px]"
+            className="my-auto fill-[#E6DBD1] mb-[7px]"
             id="search"
           >
             <g data-name="Layer 2">
@@ -123,6 +143,13 @@ const Filters = () => {
               ></path>
             </g>
           </svg>
+        </div>
+      </div>
+      <div className="h-[45px] w-full flex justify-start">
+        <div className="h-full w-[40%] bg-[#282822] hover:bg-[#3b3b33]">
+          <button className="h-full w-full text-center font-['Poppins'] text-[#E6DBD1] font-[600] text-[0.8rem] uppercase" onClick={clearFiltersHandler}>
+            Clear filters
+          </button>
         </div>
       </div>
     </div>

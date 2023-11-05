@@ -7,6 +7,7 @@ export function useFilterData() {
 }
 
 export function FilterDataProvider({ children }) {
+  const [search, setSearch] = useState("");
   const [filterData, setFilterData] = useState({
     typeFilters: {
       "Any Type": true,
@@ -26,8 +27,9 @@ export function FilterDataProvider({ children }) {
     },
   });
 
+
   return (
-    <FilterDataContext.Provider value={{ filterData, setFilterData }}>
+    <FilterDataContext.Provider value={{ filterData, setFilterData, search, setSearch }}>
       {children}
     </FilterDataContext.Provider>
   );
