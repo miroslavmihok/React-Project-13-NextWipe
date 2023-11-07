@@ -1,11 +1,9 @@
-//ServerContainer.js
+import React from 'react';
 
-import React, { useState } from 'react';
-
-const ServerContainer = ({ name, type, wipe, fill, country, groupsize, nextwipe }) => {
-  const [fav, setFav] = useState(Boolean);
+const ServerContainer = ({ name, type, wipe, fill, country, groupsize, nextwipe, onClick }) => {
+  // const [fav, setFav] = useState(Boolean);
   return (
-    <div className="w-[100%] bg-[#312F2C] flex justify-start py-[5px]">
+    <div className="w-[100%] bg-[#312F2C] flex justify-start py-[5px] cursor-pointer" onClick={onClick}>
       <div className="flex w-[70%]">
         {/* <div className="w-[25px] h-[25px] m-[10px] my-auto" onClick={() => setFav(!fav)}>
           <svg
@@ -60,11 +58,11 @@ const ServerContainer = ({ name, type, wipe, fill, country, groupsize, nextwipe 
       <div className="w-[15%] my-auto text-center">
         <h1 className="font-['Poppins'] text-[#a2a2a2] text-[12px] font-[600]">{nextwipe}</h1>
       </div>
-      <div className="w-[15%] flex flex-col justify-center items-center">
+      <button className="w-[15%] flex flex-col justify-center items-center">
         <h4 className=" bg-black/30 rounded px-[7px] cursor-pointer py-[5px] font-['Poppins'] uppercase text-[14px] font-bold text-[#e6dbd1]">
           Connect
         </h4>
-      </div>
+      </button>
     </div>
   );
 };

@@ -1,18 +1,22 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Header from "./components/Header/Logo/Header";
 import Servers from "./components/Content/Servers";
 import Filters from "./components/Filters/Filters";
+import ServerModal from "./components/_Modal/ServerModal";
 import { useFilterData } from "./filterData/filterDataContext";
+import { useServerData } from "./serverData/serverDataContext";
 
 function App() {
   const [serverData, setServerData] = useState([]);
-  const { filterData, setFilterData } = useFilterData();
   const [filteredData, setFilteredData] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const { filterData, setFilterData } = useFilterData();
   const { search } = useFilterData();
-  const [filteredByNameData, setFilteredByNameData] = useState([]);
+  const { currentServer } = useServerData();
 
-  // Fetching all server data into serverData state
+  // fetching all server data into serverData state
   useEffect(() => {
     const fetchServerData = async () => {
       let isLoading = false;
@@ -23,7 +27,8 @@ function App() {
           const data = await response.json();
           setServerData(data);
           setFilteredData(data);
-          console.log("Success fetching server data:", data);
+          setDataLoaded(true);
+          // console.log("Success fetching server data:", data);
         }
       } catch (error) {
         console.error("Error fetching server data:", error);
@@ -37,14 +42,13 @@ function App() {
     filterServerData(serverData);
   }, [filterData, serverData]);
 
-  useEffect(() => {
-    filterByName(filteredData);
-  }, [search]);
-
+  // ---------------------------------------------------
+  // start of FILTERS
+  // ---------------------------------------------------
   // filter function
   const filterServerData = (array) => {
     let updatedServerData = array;
-
+    // types
     if (!filterData.typeFilters["Any Type"]) {
       const filteredVanilla = [];
       const filteredModded = [];
@@ -62,33 +66,34 @@ function App() {
 
       updatedServerData = [...filteredVanilla, ...filteredModded];
     }
-
+    // schedule
     if (!filterData.wipeCycleFilters["Any Schedule"]) {
+      const filteredTwiceAWeek = [];
+      const filteredWeekly = [];
+      const filteredBiweekly = [];
+
       if (filterData.wipeCycleFilters["Twice a Week"]) {
-        updatedServerData = updatedServerData.filter(
-          (item) => item.wipe_cycle < 7
+        filteredTwiceAWeek.push(
+          ...updatedServerData.filter((item) => item.wipe_cycle < 7)
         );
       }
 
       if (filterData.wipeCycleFilters["Weekly"]) {
-        updatedServerData = updatedServerData.filter(
-          (item) => item.wipe_cycle === 7
+        filteredWeekly.push(
+          ...updatedServerData.filter((item) => item.wipe_cycle === 7)
         );
       }
 
       if (filterData.wipeCycleFilters["Biweekly"]) {
-        updatedServerData = updatedServerData.filter(
-          (item) => item.wipe_cycle === 14
+        filteredBiweekly.push(
+          ...updatedServerData.filter((item) => item.wipe_cycle === 14)
         );
       }
 
-      if (filterData.wipeCycleFilters["Monthly"]) {
-        updatedServerData = updatedServerData.filter(
-          (item) => item.wipe_cycle === 30
-        );
-      }
+      updatedServerData = [...filteredTwiceAWeek, ...filteredWeekly, ...filteredBiweekly];
     }
 
+    // group_size
     updatedServerData = updatedServerData.filter(
       (item) =>
         item.group_size >= filterData.groupSizeFilters.min &&
@@ -96,20 +101,16 @@ function App() {
     );
 
     setFilteredData(updatedServerData);
+
+    // showing error msg for empty arrays
+    if (updatedServerData.length === 0) {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+    }
   };
 
-  const filterByName = (array) => {
-    let filteredByName = array.filter((item) =>
-      item.name.toLowerCase().includes(search.toLowerCase())
-    );
-
-    setFilteredByNameData(filteredByName);
-  };
-
-  const finalFilteredData = filteredByNameData.length
-    ? filteredByNameData
-    : filteredData;
-
+  // clearing filters and data
   const clearFiltersAndReset = (bool) => {
     if (bool) {
       setFilteredData(serverData);
@@ -124,7 +125,6 @@ function App() {
           "Twice a Week": false,
           Weekly: false,
           Biweekly: false,
-          Monthly: false,
         },
         groupSizeFilters: {
           min: 0,
@@ -134,12 +134,33 @@ function App() {
     }
   };
 
+  // filter by name ( searchbar )
+  const filteredByName = filteredData.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  // ---------------------------------------------------
+  // end of FILTERS
+  // ---------------------------------------------------
+
+  const dialog = useRef();
+
+  const displayModal = () => {
+    dialog.current.showModal();
+  }
+
   return (
     <div className="absolute w-[100%] h-fit !max-h-[100vh] bg-[url('./assets/photos/2853513.png')] bg-cover">
       <div className="bg-[#808080]/40 h-[100vh] w-[100%] flex">
+        <ServerModal ref={dialog} server={currentServer}/>
         <Header />
         <Filters onClearFilters={clearFiltersAndReset} />
-        <Servers server={finalFilteredData} />
+        <Servers
+          servers={filteredByName}
+          isEmpty={isEmpty}
+          dataLoaded={dataLoaded}
+          onTransferServerData={displayModal}
+        />
       </div>
     </div>
   );

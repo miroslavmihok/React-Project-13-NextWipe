@@ -19,7 +19,6 @@ export function FilterDataProvider({ children }) {
       "Twice a Week": false,
       Weekly: false,
       Biweekly: false,
-      Monthly: false,
     },
     groupSizeFilters: {
       min: 0,
