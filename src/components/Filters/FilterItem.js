@@ -1,19 +1,19 @@
 import React from "react";
 
-const FilterItem = ({ name, isSelected, onClick  }) => {
+const FilterItem = ({ name, isSelected, onClick }) => {
   return (
     <div
-      className="flex py-[5px] justify-start items-center cursor-pointer w-max"
+      className="flex w-max cursor-pointer items-center justify-start py-[5px]"
       onClick={onClick}
     >
-      {isSelected  ? (
+      {isSelected ? (
         <img
           src="/tick-icon.svg"
-          className="w-[14px] h-[14px] bg-[#E6DBD1] p-[2.2px] border-[1px] border-[#E6DBD1] rounded-full mr-[8px]"
+          className="mr-[8px] h-[14px] w-[14px] rounded-full border-[1px] border-[#E6DBD1] bg-[#E6DBD1] p-[2.2px]"
           alt="tick_image"
         />
       ) : (
-        <div className="!min-w-[14px] !min-h-[14px] border-[1px] border-[#E6DBD1] rounded-full mr-[8px]"></div>
+        <div className="mr-[8px] !min-h-[14px] !min-w-[14px] rounded-full border-[1px] border-[#E6DBD1]"></div>
       )}
       <h6 className="font-['Poppins'] text-[12px]">{name}</h6>
     </div>

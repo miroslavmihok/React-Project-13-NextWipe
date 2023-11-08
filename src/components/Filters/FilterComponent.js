@@ -4,7 +4,7 @@ import FilterItem from "./FilterItem";
 const FilterComponent = ({ title, list, selected, onChange }) => {
   return (
     <div className="text-white">
-      <h1 className="font-['Poppins'] font-[600] text-[16px] text-[#E6DBD1]">
+      <h1 className="font-['Poppins'] text-[16px] font-[600] text-[#E6DBD1]">
         {title}
       </h1>
       <div className="flex flex-col justify-start px-[12px]">

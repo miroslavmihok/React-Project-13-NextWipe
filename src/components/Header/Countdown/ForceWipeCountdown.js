@@ -10,7 +10,8 @@ const ForceWipeCountdown = () => {
       nextMonth.setMonth(nextMonth.getMonth() + 1);
       nextMonth.setDate(1);
 
-      while (nextMonth.getDay() !== 4) { // 4 represents Thursday
+      while (nextMonth.getDay() !== 4) {
+        // 4 represents Thursday
         nextMonth.setDate(nextMonth.getDate() + 1);
       }
 
@@ -19,8 +20,12 @@ const ForceWipeCountdown = () => {
 
       const timeRemaining = nextMonth - now;
       const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      const hours = Math.floor(
+        (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      );
+      const minutes = Math.floor(
+        (timeRemaining % (1000 * 60 * 60)) / (1000 * 60),
+      );
       const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
       setCountdown(`${days}d ${hours}h ${minutes}m ${seconds}s`);
@@ -36,8 +41,10 @@ const ForceWipeCountdown = () => {
   }, []);
 
   return (
-    <div className="text-center text-[#E6DBD1] text-[16px] bg-[#793629] sm:space-x-2 px-[20px] py-[16px] rounded-[5px] border-[1px] border-[#fff]/40">
-      <p className="font-['Poppins'] pb-[10px] font-semibold">Next Force Wipe in</p>
+    <div className="w-full px-[20px] py-[16px] text-center text-[1.3rem] text-[#E6DBD1] sm:space-x-2">
+      <p className="pb-[10px] font-['Poppins'] font-semibold">
+        Next Force Wipe in
+      </p>
       <p className="font-['Poppins'] font-bold">{countdown}</p>
     </div>
   );

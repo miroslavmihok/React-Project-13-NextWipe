@@ -55,12 +55,12 @@ function App() {
 
       if (filterData.typeFilters.Vanilla) {
         filteredVanilla.push(
-          ...updatedServerData.filter((item) => item.type === "official")
+          ...updatedServerData.filter((item) => item.type === "official"),
         );
       }
       if (filterData.typeFilters.Modded) {
         filteredModded.push(
-          ...updatedServerData.filter((item) => item.type === "modded")
+          ...updatedServerData.filter((item) => item.type === "modded"),
         );
       }
 
@@ -74,30 +74,34 @@ function App() {
 
       if (filterData.wipeCycleFilters["Twice a Week"]) {
         filteredTwiceAWeek.push(
-          ...updatedServerData.filter((item) => item.wipe_cycle < 7)
+          ...updatedServerData.filter((item) => item.wipe_cycle < 7),
         );
       }
 
       if (filterData.wipeCycleFilters["Weekly"]) {
         filteredWeekly.push(
-          ...updatedServerData.filter((item) => item.wipe_cycle === 7)
+          ...updatedServerData.filter((item) => item.wipe_cycle === 7),
         );
       }
 
       if (filterData.wipeCycleFilters["Biweekly"]) {
         filteredBiweekly.push(
-          ...updatedServerData.filter((item) => item.wipe_cycle === 14)
+          ...updatedServerData.filter((item) => item.wipe_cycle === 14),
         );
       }
 
-      updatedServerData = [...filteredTwiceAWeek, ...filteredWeekly, ...filteredBiweekly];
+      updatedServerData = [
+        ...filteredTwiceAWeek,
+        ...filteredWeekly,
+        ...filteredBiweekly,
+      ];
     }
 
     // group_size
     updatedServerData = updatedServerData.filter(
       (item) =>
         item.group_size >= filterData.groupSizeFilters.min &&
-        item.group_size <= filterData.groupSizeFilters.max
+        item.group_size <= filterData.groupSizeFilters.max,
     );
 
     setFilteredData(updatedServerData);
@@ -136,7 +140,7 @@ function App() {
 
   // filter by name ( searchbar )
   const filteredByName = filteredData.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase())
+    item.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   // ---------------------------------------------------
@@ -149,16 +153,20 @@ function App() {
     dialog.inert = true;
     dialog.current.showModal();
     dialog.inert = false;
-  }
+  };
 
   const handleClose = () => {
     dialog.current.close();
-  }
+  };
 
   return (
-    <div className="absolute w-[100%] h-fit !max-h-[100vh] bg-[url('./assets/photos/2853513.png')] bg-cover">
-      <div className="bg-[#808080]/40 h-[100vh] w-[100%] flex">
-        <ServerModal ref={dialog} server={currentServer} onClose={handleClose}/>
+    <div className="absolute h-fit max-h-[100vh] w-full bg-[url('./assets/photos/2853513.png')] bg-cover">
+      <div className="flex h-[100vh] w-[100%] bg-[#808080]/40">
+        <ServerModal
+          ref={dialog}
+          server={currentServer}
+          onClose={handleClose}
+        />
         <Header />
         <Filters onClearFilters={clearFiltersAndReset} />
         <Servers

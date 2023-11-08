@@ -21,11 +21,11 @@ const ServerModal = forwardRef(function ServerModal({ server, onClose }, ref) {
   return (
     <dialog
       ref={ref}
-      className="text-[#E6DBD1] bg-[#1F1F1D] p-[2rem] max-w-3xl"
+      className="max-w-3xl bg-[#1F1F1D] p-[2rem] text-[#E6DBD1]"
     >
       <div
         ref={dialogRef}
-        className="w-full h-[12rem] flex flex-col justify-between px-[1rem] pt-[0.5rem]"
+        className="flex h-[12rem] w-full flex-col justify-between px-[1rem] pt-[0.5rem]"
         style={{ background: `url(${img}) no-repeat bottom/cover` }}
       >
         <form method="dialog" className="flex justify-end">
@@ -33,12 +33,12 @@ const ServerModal = forwardRef(function ServerModal({ server, onClose }, ref) {
             <i className="fa-solid fa-xmark text-4xl"></i>
           </button>
         </form>
-        <h2 className="font-['Poppins'] font-extrabold text-[1.2rem] text-center mb-6">
+        <h2 className="mb-6 text-center font-['Poppins'] text-[1.2rem] font-extrabold">
           {server.name}
         </h2>
       </div>
       <div className="w-full bg-[#222320] px-[2rem] py-[1rem]">
-        <p className="font-['Poppins'] leading-7 mb-6">
+        <p className="mb-6 font-['Poppins'] leading-7">
           {server.rust_description}
         </p>
         <p className="font-['Poppins']">{server.rust_url}</p>

@@ -16,7 +16,7 @@ const ServerContainer = ({
 
   return (
     <div
-      className="w-[100%] bg-[#312F2C] flex justify-start py-[5px] cursor-pointer"
+      className="flex w-[100%] cursor-pointer justify-start bg-[#312F2C] py-[5px]"
       onClick={onClick}
     >
       <div className="flex w-[60%]">
@@ -46,7 +46,7 @@ const ServerContainer = ({
             </g>
           </svg>
         </div> */}
-        <div className="flex justify-start ml-5 items-center gap-[10px]">
+        <div className="ml-5 flex items-center justify-start gap-[10px]">
           <div className="mb-auto">{country}</div>
           <div className="flex flex-col justify-between gap-[14px]">
             <h1 className="font-['Poppins'] text-[14px] font-semibold text-[#E6DBD1]">
@@ -73,19 +73,19 @@ const ServerContainer = ({
                 </span>
                 <span className="font-['Poppins'] text-[#9c392D]">{fill}</span>
               </h1> */}
-              <div className="font-['Poppins'] h-max capitalize text-[11px] px-[5px] leading-[11px] py-[3px] rounded text-[#E6dbd1] font-[600]  bg-[#22415B]">
+              <div className="h-max rounded bg-[#22415B] px-[5px] py-[3px] font-['Poppins'] text-[11px] font-[600] capitalize leading-[11px]  text-[#E6dbd1]">
                 {type}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-[20%] my-auto text-center">
-        <h1 className="font-['Poppins'] text-[#a2a2a2] text-[12px] font-[600]">
+      <div className="my-auto w-[20%] text-center">
+        <h1 className="font-['Poppins'] text-[12px] font-[600] text-[#a2a2a2]">
           {nextwipe}
         </h1>
       </div>
-      <div className="w-[20%] flex justify-around px-4">
+      <div className="flex w-[20%] justify-around px-4">
         <button
           className="items-center"
           onClick={(e) => {
@@ -94,7 +94,7 @@ const ServerContainer = ({
             navigator.clipboard.writeText(serverAdress);
           }}
         >
-          <h4 className=" bg-black/30 rounded px-[7px] cursor-pointer py-[5px] font-['Poppins'] uppercase text-[14px] font-bold text-[#e6dbd1]">
+          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[14px] font-bold uppercase text-[#e6dbd1]">
             Copy IP
           </h4>
         </button>
@@ -106,7 +106,7 @@ const ServerContainer = ({
             window.open(url, "_blank");
           }}
         >
-          <h4 className=" bg-black/30 rounded px-[7px] cursor-pointer py-[5px] font-['Poppins'] uppercase text-[14px] font-bold text-[#e6dbd1]">
+          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[14px] font-bold uppercase text-[#e6dbd1]">
             Connect
           </h4>
         </button>
