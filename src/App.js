@@ -4,17 +4,15 @@ import Header from "./components/Header/Logo/Header";
 import Servers from "./components/Content/Servers";
 import Filters from "./components/Filters/Filters";
 import ServerModal from "./components/_Modal/ServerModal";
-import { useFilterData } from "./filterData/filterDataContext";
-import { useServerData } from "./serverData/serverDataContext";
+import FilterButton from "./components/Filters/FilterButton/FilterButton";
+import { useData } from "./dataContext/dataContext";
 
 function App() {
   const [serverData, setServerData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { filterData, setFilterData } = useFilterData();
-  const { search } = useFilterData();
-  const { currentServer } = useServerData();
+  const { filterData, setFilterData, search, currentServer } = useData();
 
   // fetching all server data into serverData state
   useEffect(() => {
@@ -160,13 +158,14 @@ function App() {
   };
 
   return (
-    <div className="absolute h-fit max-h-[100vh] w-full bg-[url('./assets/photos/2853513.png')] bg-cover">
-      <div className="flex h-[100vh] w-[100%] bg-[#808080]/40">
+    <div className="h-fit max-h-[100vh] w-full bg-[url('./assets/photos/2853513.png')] bg-cover max-xl:max-h-fit">
+      <div className="flex h-[100vh] w-[100%] bg-[#808080]/40 max-xl:h-full max-xl:flex-col">
         <ServerModal
           ref={dialog}
           server={currentServer}
           onClose={handleClose}
         />
+        <FilterButton />
         <Header />
         <Filters onClearFilters={clearFiltersAndReset} />
         <Servers

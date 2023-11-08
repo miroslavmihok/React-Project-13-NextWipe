@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import rust from "../../../assets/photos/rustlogo.png";
 
@@ -6,17 +6,17 @@ import ForceWipeCountdown from "../Countdown/ForceWipeCountdown";
 
 const Header = () => {
   return (
-    <div className=" flex h-[100%] w-[24%] flex-col items-center  justify-between bg-black/40 pt-[24px]">
+    <div className=" flex h-[100%] w-[24%] flex-col items-center  justify-between bg-black/40 pt-[24px] max-xl:h-fit max-xl:w-full">
       <div>
         {/* Logo */}
-        <div className="flex items-center   pt-2 text-[10px]   text-white sm:text-[48px]">
-          <h1 className="pr-[0.7rem] ">NEXT</h1>
+        <div className="flex items-center justify-center pt-2 text-[3rem] text-white max-sm:text-[1.5rem]">
+          <h1 className="pr-[0.7rem]">NEXT</h1>
           <img
             src={rust}
-            className="h-[1.5rem] w-[1.5rem] sm:h-[2.5rem] sm:w-[2.5rem]"
+            className="h-[2.5rem] w-[2.5rem] max-sm:h-[1.5rem] max-sm:w-[1.5rem]"
             alt="logo"
           />
-          <h1 className="pl-[0.7rem] ">WIPE</h1>
+          <h1 className="pl-[0.7rem]">WIPE</h1>
         </div>
         {/* Get Ready for next wipe */}
         <div className="mb-5 text-center text-[18px] text-[#6e6e6e] sm:pt-3 sm:text-[20px]">
@@ -30,7 +30,7 @@ const Header = () => {
         <h1 className="font-['Poppins']">SERVERS</h1>
         <h1 className="font-['Poppins']">ABOUT</h1>
       </div> */}
-      <div className="flex flex-col gap-[14px] pb-[14px]">
+      <div className="flex flex-col gap-[14px] pb-[14px] max-xl:hidden">
         <p className="px-[30px] text-center font-['Poppins'] text-[12px] font-[600] text-[#E6DBD1]">
           This site is not affiliated with, nor endorsed by{" "}
           <b className="font-['Poppins'] text-[#9c392D]">
