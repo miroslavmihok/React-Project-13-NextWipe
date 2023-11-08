@@ -146,13 +146,19 @@ function App() {
   const dialog = useRef();
 
   const displayModal = () => {
+    dialog.inert = true;
     dialog.current.showModal();
+    dialog.inert = false;
+  }
+
+  const handleClose = () => {
+    dialog.current.close();
   }
 
   return (
     <div className="absolute w-[100%] h-fit !max-h-[100vh] bg-[url('./assets/photos/2853513.png')] bg-cover">
       <div className="bg-[#808080]/40 h-[100vh] w-[100%] flex">
-        <ServerModal ref={dialog} server={currentServer}/>
+        <ServerModal ref={dialog} server={currentServer} onClose={handleClose}/>
         <Header />
         <Filters onClearFilters={clearFiltersAndReset} />
         <Servers

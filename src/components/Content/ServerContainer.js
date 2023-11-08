@@ -1,10 +1,25 @@
-import React from 'react';
+import React from "react";
 
-const ServerContainer = ({ name, type, wipe, fill, country, groupsize, nextwipe, onClick }) => {
+const ServerContainer = ({
+  name,
+  type,
+  wipe,
+  fill,
+  country,
+  groupsize,
+  nextwipe,
+  ip,
+  port,
+  onClick,
+}) => {
   // const [fav, setFav] = useState(Boolean);
+
   return (
-    <div className="w-[100%] bg-[#312F2C] flex justify-start py-[5px] cursor-pointer" onClick={onClick}>
-      <div className="flex w-[70%]">
+    <div
+      className="w-[100%] bg-[#312F2C] flex justify-start py-[5px] cursor-pointer"
+      onClick={onClick}
+    >
+      <div className="flex w-[60%]">
         {/* <div className="w-[25px] h-[25px] m-[10px] my-auto" onClick={() => setFav(!fav)}>
           <svg
             height="25px"
@@ -34,20 +49,30 @@ const ServerContainer = ({ name, type, wipe, fill, country, groupsize, nextwipe,
         <div className="flex justify-start ml-5 items-center gap-[10px]">
           <div className="mb-auto">{country}</div>
           <div className="flex flex-col justify-between gap-[14px]">
-            <h1 className="font-['Poppins'] text-[14px] font-semibold text-[#E6DBD1]">{name}</h1>
+            <h1 className="font-['Poppins'] text-[14px] font-semibold text-[#E6DBD1]">
+              {name}
+            </h1>
             <div className="flex justify-start gap-[10px]">
               <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
-                <span className="font-['Poppins'] text-[#727272]">Last Wipe </span>
+                <span className="font-['Poppins'] text-[#727272]">
+                  Last Wipe{" "}
+                </span>
                 <span className="font-['Poppins'] text-[#9c392D]">{wipe}</span>
               </h1>
               <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
-                <span className="font-['Poppins'] text-[#727272]">Max Group </span>
-                <span className="font-['Poppins'] text-[#9c392D]">{groupsize}</span>
+                <span className="font-['Poppins'] text-[#727272]">
+                  Max Group{" "}
+                </span>
+                <span className="font-['Poppins'] text-[#9c392D]">
+                  {groupsize}
+                </span>
               </h1>
-              <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
-                <span className="font-['Poppins'] text-[#727272]">Fill on Wipe </span>
+              {/* <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
+                <span className="font-['Poppins'] text-[#727272]">
+                  Fill on Wipe{" "}
+                </span>
                 <span className="font-['Poppins'] text-[#9c392D]">{fill}</span>
-              </h1>
+              </h1> */}
               <div className="font-['Poppins'] h-max capitalize text-[11px] px-[5px] leading-[11px] py-[3px] rounded text-[#E6dbd1] font-[600]  bg-[#22415B]">
                 {type}
               </div>
@@ -55,14 +80,37 @@ const ServerContainer = ({ name, type, wipe, fill, country, groupsize, nextwipe,
           </div>
         </div>
       </div>
-      <div className="w-[15%] my-auto text-center">
-        <h1 className="font-['Poppins'] text-[#a2a2a2] text-[12px] font-[600]">{nextwipe}</h1>
+      <div className="w-[20%] my-auto text-center">
+        <h1 className="font-['Poppins'] text-[#a2a2a2] text-[12px] font-[600]">
+          {nextwipe}
+        </h1>
       </div>
-      <button className="w-[15%] flex flex-col justify-center items-center">
-        <h4 className=" bg-black/30 rounded px-[7px] cursor-pointer py-[5px] font-['Poppins'] uppercase text-[14px] font-bold text-[#e6dbd1]">
-          Connect
-        </h4>
-      </button>
+      <div className="w-[20%] flex justify-around px-4">
+        <button
+          className="items-center"
+          onClick={(e) => {
+            e.stopPropagation();
+            const serverAdress = `client.connect ${ip}:${port}`;
+            navigator.clipboard.writeText(serverAdress);
+          }}
+        >
+          <h4 className=" bg-black/30 rounded px-[7px] cursor-pointer py-[5px] font-['Poppins'] uppercase text-[14px] font-bold text-[#e6dbd1]">
+            Copy IP
+          </h4>
+        </button>
+        <button
+          className="items-center"
+          onClick={(e) => {
+            e.stopPropagation();
+            const url = `steam://connect/${ip}:${port}`;
+            window.open(url, "_blank");
+          }}
+        >
+          <h4 className=" bg-black/30 rounded px-[7px] cursor-pointer py-[5px] font-['Poppins'] uppercase text-[14px] font-bold text-[#e6dbd1]">
+            Connect
+          </h4>
+        </button>
+      </div>
     </div>
   );
 };

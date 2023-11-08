@@ -16,10 +16,10 @@ const Servers = ({ servers, isEmpty, dataLoaded, onTransferServerData }) => {
     <>
       <div className="relative z-10 max-w-[54%] pl-[20px] flex flex-col bg-[#222320] justify-start w-full pr-[5px] pb-[20px]">
         <div className="flex font-bold text-[#727272] w-[98%] uppercase">
-          <div className="w-[70%] h-[40px] flex items-center">
+          <div className="w-[60%] h-[40px] flex items-center">
             <h1 className="font-['Poppins']">SERVER information</h1>
           </div>
-          <div className="w-[15%] h-[40px] flex justify-center items-center">
+          <div className="w-[20%] h-[40px] flex justify-center items-center">
             <h1 className="font-['Poppins']">NEXT WIPE IN</h1>
           </div>
         </div>
@@ -35,7 +35,9 @@ const Servers = ({ servers, isEmpty, dataLoaded, onTransferServerData }) => {
               name={server.name}
               type={server.type}
               wipe={server.last_wipe}
-              fill={"100%"}
+              ip={server.ip}
+              port={server.port}
+              // fill={"100%"}
               groupsize={server.group_size}
               nextwipe={server.next_wipe}
               country={

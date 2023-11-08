@@ -41,6 +41,7 @@ const fetchCombinedServerData = async () => {
       const combinedServerData = data.data.map((serverData) => {
         const { id, attributes } = serverData;
         const { name, country } = attributes;
+        const { ip, port } = attributes;
         const { rust_type, rust_last_wipe } = attributes.details;
         const { rust_description, rust_url } = attributes.details;
 
@@ -78,6 +79,8 @@ const fetchCombinedServerData = async () => {
             timeDifference > 0 ? formatTimeDifference(timeDifference) : "Now",
           rust_description,
           rust_url,
+          ip,
+          port,
         };
       });
 
