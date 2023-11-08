@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useState } from "react";
 
-const FilterDataContext = createContext();
+const DataContext = createContext();
 
-export function useFilterData() {
-  return useContext(FilterDataContext);
+export function useData() {
+  return useContext(DataContext);
 }
 
-export function FilterDataProvider({ children }) {
+export function DataProvider({ children }) {
+  const [isClosed, setIsClosed] = useState(true);
+  const [currentServer, setCurrentServer] = useState({});
   const [search, setSearch] = useState("");
   const [filterData, setFilterData] = useState({
     typeFilters: {
@@ -27,10 +29,19 @@ export function FilterDataProvider({ children }) {
   });
 
   return (
-    <FilterDataContext.Provider
-      value={{ filterData, setFilterData, search, setSearch }}
+    <DataContext.Provider
+      value={{
+        filterData,
+        setFilterData,
+        search,
+        setSearch,
+        currentServer,
+        setCurrentServer,
+        isClosed,
+        setIsClosed,
+      }}
     >
       {children}
-    </FilterDataContext.Provider>
+    </DataContext.Provider>
   );
 }

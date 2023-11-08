@@ -1,10 +1,10 @@
 import React from "react";
 import ServerContainer from "./ServerContainer";
 import ReactCountryFlag from "react-country-flag";
-import { useServerData } from "../../serverData/serverDataContext";
+import { useData } from "../../dataContext/dataContext";
 
 const Servers = ({ servers, isEmpty, dataLoaded, onTransferServerData }) => {
-  const { setCurrentServer } = useServerData();
+  const { setCurrentServer } = useData();
 
   const clickedServerHandler = (server) => {
     setCurrentServer(server);
@@ -13,12 +13,12 @@ const Servers = ({ servers, isEmpty, dataLoaded, onTransferServerData }) => {
 
   return (
     <>
-      <div className="relative z-10 flex w-full max-w-[54%] flex-col justify-start bg-[#222320] pb-[20px] pl-[20px] pr-[5px]">
-        <div className="flex w-[98%] font-bold uppercase text-[#727272]">
-          <div className="flex h-[40px] w-[60%] items-center">
+      <div className="relative z-10 flex w-full max-w-[54%] flex-col justify-start bg-[#222320] pb-[20px] pl-[20px] pr-[5px] max-xl:min-h-screen max-xl:max-w-full max-sm:pt-[20px]">
+        <div className="flex w-[98%] font-bold uppercase text-[#727272] max-sm:hidden">
+          <div className="flex h-[40px] w-[50%] items-center">
             <h1 className="font-['Poppins']">SERVER information</h1>
           </div>
-          <div className="flex h-[40px] w-[20%] items-center justify-center">
+          <div className="flex h-[40px] w-[25%] items-center justify-center max-sm:w-[38%]">
             <h1 className="font-['Poppins']">NEXT WIPE IN</h1>
           </div>
         </div>

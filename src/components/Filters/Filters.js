@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import FilterComponent from "./FilterComponent";
 import ReactSlider from "react-slider";
-import { useFilterData } from "../../filterData/filterDataContext";
+import { useData } from "../../dataContext/dataContext";
 
-const Filters = (props) => {
-  const { filterData, setFilterData } = useFilterData();
-  const { search, setSearch } = useFilterData();
+const Filters = ({ onClearFilters }) => {
+  const {
+    filterData,
+    setFilterData,
+    search,
+    setSearch,
+    isClosed,
+    setIsClosed,
+  } = useData();
 
   const handleTypeChange = (name) => {
     const updatedTypeFilters = { ...filterData.typeFilters };
@@ -73,11 +79,23 @@ const Filters = (props) => {
   useEffect(() => {}, [search]);
 
   const clearFiltersHandler = () => {
-    props.onClearFilters(true);
+    onClearFilters(true);
   };
 
   return (
-    <div className="flex max-h-screen w-[20%] flex-col justify-start gap-[40px] overflow-hidden overflow-y-auto overflow-x-hidden bg-[#793629]/80 py-[50px] lg:px-[40px] 2xl:px-[60px]">
+    <div
+      className={`z-50 flex max-h-screen w-[20%] flex-col justify-start gap-[2.5rem] overflow-hidden overflow-y-auto overflow-x-hidden bg-[#793629]/80 px-[40px] py-[3rem] max-xl:fixed ${
+        isClosed ? "max-xl:left-[-45%] max-sm:left-[-100%]" : "max-xl:left-0"
+      } max-xl:top-0 max-xl:h-screen max-xl:w-[45%] max-xl:bg-[#793629] max-sm:w-[100%] max-sm:gap-[1rem]`}
+    >
+      <div className="hidden max-xl:flex max-xl:justify-end">
+        <button
+          className="font-['Poppins'] outline-0"
+          onClick={() => setIsClosed(true)}
+        >
+          <i className="fa-solid fa-xmark text-4xl text-[#E6DBD1]"></i>
+        </button>
+      </div>
       <FilterComponent
         title="SERVER TYPE"
         list={["Any Type", "Vanilla", "Modded"]}

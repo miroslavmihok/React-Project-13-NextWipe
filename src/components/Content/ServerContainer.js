@@ -16,10 +16,10 @@ const ServerContainer = ({
 
   return (
     <div
-      className="flex w-[100%] cursor-pointer justify-start bg-[#312F2C] py-[5px]"
+      className="flex w-[100%] cursor-pointer justify-start bg-[#312F2C] py-[0.8rem] max-sm:flex-col max-sm:justify-center"
       onClick={onClick}
     >
-      <div className="flex w-[60%]">
+      <div className="flex w-[50%] min-w-[50%] max-w-[50%] max-sm:w-full max-sm:min-w-full max-sm:max-w-full max-sm:justify-center">
         {/* <div className="w-[25px] h-[25px] m-[10px] my-auto" onClick={() => setFav(!fav)}>
           <svg
             height="25px"
@@ -46,13 +46,13 @@ const ServerContainer = ({
             </g>
           </svg>
         </div> */}
-        <div className="ml-5 flex items-center justify-start gap-[10px]">
-          <div className="mb-auto">{country}</div>
-          <div className="flex flex-col justify-between gap-[14px]">
-            <h1 className="font-['Poppins'] text-[14px] font-semibold text-[#E6DBD1]">
+        <div className="ml-5 flex min-w-full max-w-full items-center justify-start gap-[10px] max-sm:ml-0 max-sm:min-w-full max-sm:max-w-full max-sm:px-[1rem]">
+          <div className="mb-auto min-w-[6%] max-sm:hidden">{country}</div>
+          <div className="flex min-w-[94%] max-w-[94%] flex-col justify-between gap-[14px]">
+            <h1 className="inline-block truncate font-['Poppins'] text-[14px] font-semibold text-[#E6DBD1] max-sm:inline-block max-sm:truncate max-sm:text-center">
               {name}
             </h1>
-            <div className="flex justify-start gap-[10px]">
+            <div className="flex justify-start gap-[10px] max-sm:justify-center">
               <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
                 <span className="font-['Poppins'] text-[#727272]">
                   Last Wipe{" "}
@@ -80,33 +80,33 @@ const ServerContainer = ({
           </div>
         </div>
       </div>
-      <div className="my-auto w-[20%] text-center">
-        <h1 className="font-['Poppins'] text-[12px] font-[600] text-[#a2a2a2]">
+      <div className="my-auto w-[25%] text-center max-sm:w-[100%]">
+        <h1 className="font-['Poppins'] text-[0.85rem] font-[600] text-[#a2a2a2] max-sm:py-[0.5rem]">
           {nextwipe}
         </h1>
       </div>
-      <div className="flex w-[20%] justify-around px-4">
+      <div className="flex w-[25%] justify-center gap-[0.5rem] px-[0.25rem] max-sm:w-[100%]">
         <button
-          className="items-center"
+          className="items-center max-sm:w-full"
           onClick={(e) => {
             e.stopPropagation();
             const serverAdress = `client.connect ${ip}:${port}`;
             navigator.clipboard.writeText(serverAdress);
           }}
         >
-          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[14px] font-bold uppercase text-[#e6dbd1]">
+          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[0.8rem] font-bold uppercase text-[#e6dbd1] max-sm:text-[0.75rem]">
             Copy IP
           </h4>
         </button>
         <button
-          className="items-center"
+          className="items-center max-xl:hidden"
           onClick={(e) => {
             e.stopPropagation();
             const url = `steam://connect/${ip}:${port}`;
             window.open(url, "_blank");
           }}
         >
-          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[14px] font-bold uppercase text-[#e6dbd1]">
+          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[0.8rem] font-bold uppercase text-[#e6dbd1]">
             Connect
           </h4>
         </button>
