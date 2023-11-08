@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { fetchMongoDBData } = require('../db/mongoDBAPI'); // Update the import path
-const { fetchCombinedServerData } = require('../db/battlemetricsAPI'); // Import the BattleMetrics fetch function
+const { fetchMongoDBData } = require('../db/mongoDBAPI');
+const { fetchCombinedServerData } = require('../db/battlemetricsAPI');
 
 router.get('/mongodbservers', async (req, res) => {
     try {
-        const mongoDBServerData = await fetchMongoDBData(); // Call the appropriate function
+        const mongoDBServerData = await fetchMongoDBData();
         res.send(mongoDBServerData);
     } catch (error) {
         console.error('Error fetching data from MongoDB:', error);

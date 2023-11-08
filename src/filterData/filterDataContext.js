@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
 const FilterDataContext = createContext();
 
@@ -19,7 +19,6 @@ export function FilterDataProvider({ children }) {
       "Twice a Week": false,
       Weekly: false,
       Biweekly: false,
-      Monthly: false,
     },
     groupSizeFilters: {
       min: 0,
@@ -27,9 +26,10 @@ export function FilterDataProvider({ children }) {
     },
   });
 
-
   return (
-    <FilterDataContext.Provider value={{ filterData, setFilterData, search, setSearch }}>
+    <FilterDataContext.Provider
+      value={{ filterData, setFilterData, search, setSearch }}
+    >
       {children}
     </FilterDataContext.Provider>
   );

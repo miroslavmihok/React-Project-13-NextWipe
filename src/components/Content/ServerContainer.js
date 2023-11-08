@@ -1,12 +1,25 @@
-//ServerContainer.js
+import React from "react";
 
-import React, { useState } from 'react';
+const ServerContainer = ({
+  name,
+  type,
+  wipe,
+  fill,
+  country,
+  groupsize,
+  nextwipe,
+  ip,
+  port,
+  onClick,
+}) => {
+  // const [fav, setFav] = useState(Boolean);
 
-const ServerContainer = ({ name, type, wipe, fill, country, groupsize, nextwipe }) => {
-  const [fav, setFav] = useState(Boolean);
   return (
-    <div className="w-[100%] bg-[#312F2C] flex justify-start py-[5px]">
-      <div className="flex w-[70%]">
+    <div
+      className="flex w-[100%] cursor-pointer justify-start bg-[#312F2C] py-[5px]"
+      onClick={onClick}
+    >
+      <div className="flex w-[60%]">
         {/* <div className="w-[25px] h-[25px] m-[10px] my-auto" onClick={() => setFav(!fav)}>
           <svg
             height="25px"
@@ -33,37 +46,70 @@ const ServerContainer = ({ name, type, wipe, fill, country, groupsize, nextwipe 
             </g>
           </svg>
         </div> */}
-        <div className="flex justify-start ml-5 items-center gap-[10px]">
+        <div className="ml-5 flex items-center justify-start gap-[10px]">
           <div className="mb-auto">{country}</div>
           <div className="flex flex-col justify-between gap-[14px]">
-            <h1 className="font-['Poppins'] text-[14px] font-semibold text-[#E6DBD1]">{name}</h1>
+            <h1 className="font-['Poppins'] text-[14px] font-semibold text-[#E6DBD1]">
+              {name}
+            </h1>
             <div className="flex justify-start gap-[10px]">
               <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
-                <span className="font-['Poppins'] text-[#727272]">Last Wipe </span>
+                <span className="font-['Poppins'] text-[#727272]">
+                  Last Wipe{" "}
+                </span>
                 <span className="font-['Poppins'] text-[#9c392D]">{wipe}</span>
               </h1>
               <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
-                <span className="font-['Poppins'] text-[#727272]">Max Group </span>
-                <span className="font-['Poppins'] text-[#9c392D]">{groupsize}</span>
+                <span className="font-['Poppins'] text-[#727272]">
+                  Max Group{" "}
+                </span>
+                <span className="font-['Poppins'] text-[#9c392D]">
+                  {groupsize}
+                </span>
               </h1>
-              <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
-                <span className="font-['Poppins'] text-[#727272]">Fill on Wipe </span>
+              {/* <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
+                <span className="font-['Poppins'] text-[#727272]">
+                  Fill on Wipe{" "}
+                </span>
                 <span className="font-['Poppins'] text-[#9c392D]">{fill}</span>
-              </h1>
-              <div className="font-['Poppins'] h-max capitalize text-[11px] px-[5px] leading-[11px] py-[3px] rounded text-[#E6dbd1] font-[600]  bg-[#22415B]">
+              </h1> */}
+              <div className="h-max rounded bg-[#22415B] px-[5px] py-[3px] font-['Poppins'] text-[11px] font-[600] capitalize leading-[11px]  text-[#E6dbd1]">
                 {type}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-[15%] my-auto text-center">
-        <h1 className="font-['Poppins'] text-[#a2a2a2] text-[12px] font-[600]">{nextwipe}</h1>
+      <div className="my-auto w-[20%] text-center">
+        <h1 className="font-['Poppins'] text-[12px] font-[600] text-[#a2a2a2]">
+          {nextwipe}
+        </h1>
       </div>
-      <div className="w-[15%] flex flex-col justify-center items-center">
-        <h4 className=" bg-black/30 rounded px-[7px] cursor-pointer py-[5px] font-['Poppins'] uppercase text-[14px] font-bold text-[#e6dbd1]">
-          Connect
-        </h4>
+      <div className="flex w-[20%] justify-around px-4">
+        <button
+          className="items-center"
+          onClick={(e) => {
+            e.stopPropagation();
+            const serverAdress = `client.connect ${ip}:${port}`;
+            navigator.clipboard.writeText(serverAdress);
+          }}
+        >
+          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[14px] font-bold uppercase text-[#e6dbd1]">
+            Copy IP
+          </h4>
+        </button>
+        <button
+          className="items-center"
+          onClick={(e) => {
+            e.stopPropagation();
+            const url = `steam://connect/${ip}:${port}`;
+            window.open(url, "_blank");
+          }}
+        >
+          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[14px] font-bold uppercase text-[#e6dbd1]">
+            Connect
+          </h4>
+        </button>
       </div>
     </div>
   );
