@@ -23,6 +23,7 @@ const handler = async () => {
     const collection = db.collection(collectionName);
 
     const mbData = await collection.find().toArray();
+    client.close();
 
     // server_ids from the MongoDB data
     const desiredServerIds = mbData.map((server) => server.server_id);
