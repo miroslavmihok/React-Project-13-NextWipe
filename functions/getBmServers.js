@@ -1,33 +1,41 @@
+const { MongoClient } = require("mongodb");
 require("dotenv").config();
-const { fetchMongoDBData } = require("./mongoDBAPI");
+
+const mongoURL = process.env.MONGO_URL;
+const dbName = "server_data";
+const collectionName = "servers";
 
 const formatTimeDifference = (timeDifference) => {
   const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
   const hours = Math.floor(
-    (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
   );
   const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
   return `${days}d ${hours}h ${minutes}min`;
 };
 
-const fetchCombinedServerData = async () => {
+const handler = async () => {
   try {
-    const mongoDBServerData = await fetchMongoDBData();
+    const client = new MongoClient(mongoURL);
+    await client.connect();
+
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    const mbData = await collection.find().toArray();
 
     // server_ids from the MongoDB data
-    const desiredServerIds = mongoDBServerData.map(
-      (server) => server.server_id
-    );
+    const desiredServerIds = mbData.map((server) => server.server_id);
 
     const response = await fetch(
       `https://api.battlemetrics.com/servers?page[size]=20&filter[ids][whitelist]=${desiredServerIds.join(
-        ","
+        ",",
       )}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.BATTLEMETRICS_API_KEY}`,
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -45,8 +53,8 @@ const fetchCombinedServerData = async () => {
         const { rust_type, rust_last_wipe } = attributes.details;
         const { rust_description, rust_url } = attributes.details;
 
-        const matchingMongoDBServer = mongoDBServerData.find(
-          (server) => server.server_id === id
+        const matchingMongoDBServer = mbData.find(
+          (server) => server.server_id === id,
         );
         const group_size = matchingMongoDBServer
           ? matchingMongoDBServer.group_size
@@ -64,7 +72,7 @@ const fetchCombinedServerData = async () => {
 
         // Formating the rust_last_wipe date as "dd/mm/yyyy"
         const formattedLastWipe = new Intl.DateTimeFormat("en-GB").format(
-          new Date(rust_last_wipe)
+          new Date(rust_last_wipe),
         );
 
         return {
@@ -84,17 +92,24 @@ const fetchCombinedServerData = async () => {
         };
       });
 
-      return combinedServerData;
+      return {
+        statusCode: 200,
+        body: JSON.stringify(combinedServerData),
+      };
     } else {
-      console.error("Incomplete or unexpected response from Battlemetrics.");
-      return [];
+      return {
+        statusCode: 500,
+        body: [],
+      };
     }
   } catch (error) {
-    console.error("Error fetching combined server data:", error);
-    throw error;
+    return {
+      statusCode: 500,
+      body: error.toString(),
+    };
   }
 };
 
 module.exports = {
-  fetchCombinedServerData,
+  handler,
 };
