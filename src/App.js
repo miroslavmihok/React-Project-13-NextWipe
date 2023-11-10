@@ -19,10 +19,8 @@ function App() {
 
   useEffect(() => {
     const fetchServerData = async () => {
-      let isLoading = false;
       try {
-        if (!isLoading) {
-          isLoading = true;
+        if (isValidated) {
           const response = await fetch("/.netlify/functions/getBmServers");
           const data = await response.json();
           setServerData(data);
@@ -32,10 +30,9 @@ function App() {
       } catch (error) {
         console.error("Error fetching server data:", error);
       }
-      isLoading = false;
     };
     fetchServerData();
-  }, []);
+  }, [isValidated]);
 
   useEffect(() => {
     filterServerData(serverData);
