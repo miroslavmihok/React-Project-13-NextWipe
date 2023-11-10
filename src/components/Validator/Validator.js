@@ -6,10 +6,11 @@ const Validator = () => {
   const { setIsValidated } = useData();
 
   const password = process.env.REACT_APP_PASSWORD;
+  // const password = "test";
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (userInput === password) {
+    if (userInput.trim() === password) {
       setIsValidated(true);
     }
   };
