@@ -5,7 +5,7 @@ const Validator = () => {
   const [userInput, setUserInput] = useState("");
   const { setIsValidated } = useData();
 
-  const password = process.env.PASSWORD1;
+  const password = process.env.REACT_APP_PASSWORD;
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const Validator = () => {
 
   return (
     <div className="absolute z-50 flex h-screen w-screen items-center justify-center bg-[#312F2C] ">
-      <div className="flex h-[40%] w-[60%] flex-col items-center justify-evenly rounded-xl border border-none bg-[#403d39] bg-gradient-to-tr from-[#65615a] via-[#7d7770] to-[#65615a] shadow-2xl shadow-black max-sm:w-[80%] lg:w-[40%]">
+      <div className="flex h-[40%] flex-col items-center justify-evenly rounded-xl border border-none bg-[#403d39] bg-gradient-to-tr from-[#65615a] via-[#7d7770] to-[#65615a] shadow-2xl shadow-black max-sm:w-[80%] sm:min-w-[400px]">
         <div className="flex h-[40%] w-full flex-col items-center justify-between px-[6%] pt-[6%]">
           <div className="flex w-[80%] items-center justify-center">
             <i className="fa-solid fa-right-to-bracket mr-[5%] text-3xl font-semibold text-[#E6DBD1]"></i>
@@ -36,10 +36,10 @@ const Validator = () => {
             >
               Password
             </label>
-            <div className="flex h-[22%] w-full items-center rounded-sm border border-none bg-white focus-within:border-4">
+            <div className="flex h-[22%] w-full items-center rounded-sm border border-none bg-white shadow-sm shadow-black/20 focus-within:border-4">
               <i className="fa-solid fa-lock px-[4%] text-[#222320]"></i>
               <input
-                className="h-full w-full  bg-transparent font-['Poppins'] outline-none placeholder:text-[0.8rem]"
+                className="h-full w-full bg-transparent font-['Poppins'] outline-none placeholder:text-[0.8rem]"
                 type="password"
                 id="password"
                 placeholder="Enter your Password"
