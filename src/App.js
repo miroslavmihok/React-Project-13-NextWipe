@@ -5,6 +5,7 @@ import Servers from "./components/Content/Servers";
 import Filters from "./components/Filters/Filters";
 import ServerModal from "./components/_Modal/ServerModal";
 import FilterButton from "./components/Filters/FilterButton/FilterButton";
+import Validator from "./components/Validator/Validator";
 import { useData } from "./dataContext/dataContext";
 
 function App() {
@@ -12,21 +13,21 @@ function App() {
   const [filteredData, setFilteredData] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { filterData, setFilterData, search, currentServer } = useData();
 
-  // fetching all server data into serverData state
+  const { filterData, setFilterData, search, currentServer, isValidated } =
+    useData();
+
   useEffect(() => {
     const fetchServerData = async () => {
       let isLoading = false;
       try {
         if (!isLoading) {
           isLoading = true;
-          const response = await fetch("/bmservers");
+          const response = await fetch("/.netlify/functions/getBmServers");
           const data = await response.json();
           setServerData(data);
           setFilteredData(data);
           setDataLoaded(true);
-          // console.log("Success fetching server data:", data);
         }
       } catch (error) {
         console.error("Error fetching server data:", error);
@@ -38,6 +39,7 @@ function App() {
 
   useEffect(() => {
     filterServerData(serverData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterData, serverData]);
 
   // ---------------------------------------------------
@@ -158,24 +160,29 @@ function App() {
   };
 
   return (
-    <div className="h-fit max-h-[100vh] w-full bg-[url('./assets/photos/2853513.png')] bg-cover max-xl:max-h-fit">
-      <div className="flex h-[100vh] w-[100%] bg-[#808080]/40 max-xl:h-full max-xl:flex-col">
-        <ServerModal
-          ref={dialog}
-          server={currentServer}
-          onClose={handleClose}
-        />
-        <FilterButton />
-        <Header />
-        <Filters onClearFilters={clearFiltersAndReset} />
-        <Servers
-          servers={filteredByName}
-          isEmpty={isEmpty}
-          dataLoaded={dataLoaded}
-          onTransferServerData={displayModal}
-        />
-      </div>
-    </div>
+    <>
+      {!isValidated && <Validator />}
+      {isValidated && (
+        <div className="h-fit max-h-[100vh] w-full bg-[url('./assets/photos/2853513.png')] bg-cover max-xl:max-h-fit">
+          <div className="flex h-[100vh] w-[100%] bg-[#808080]/40 max-xl:h-full max-xl:flex-col">
+            <ServerModal
+              ref={dialog}
+              server={currentServer}
+              onClose={handleClose}
+            />
+            <FilterButton />
+            <Header />
+            <Filters onClearFilters={clearFiltersAndReset} />
+            <Servers
+              servers={filteredByName}
+              isEmpty={isEmpty}
+              dataLoaded={dataLoaded}
+              onTransferServerData={displayModal}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -5,7 +5,7 @@ const FilterButton = () => {
   const { setIsClosed } = useData();
 
   return (
-    <div className="hidden max-xl:fixed max-xl:right-[1rem] max-xl:top-[1rem] max-xl:z-40 max-xl:block">
+    <div className="hidden max-xl:fixed max-xl:right-[1rem] max-xl:top-[1rem] max-xl:z-30 max-xl:block">
       <button
         className="font-['Poppins'] outline-0"
         onClick={() => setIsClosed(false)}

@@ -84,7 +84,7 @@ const Filters = ({ onClearFilters }) => {
 
   return (
     <div
-      className={`z-50 flex max-h-screen w-[20%] flex-col justify-start gap-[2.5rem] overflow-hidden overflow-y-auto overflow-x-hidden bg-[#793629]/80 px-[40px] py-[3rem] max-xl:fixed ${
+      className={`z-40 flex max-h-screen w-[20%] flex-col justify-start gap-[2.5rem] overflow-hidden overflow-y-auto overflow-x-hidden bg-[#793629]/80 px-[40px] py-[3rem] max-xl:fixed ${
         isClosed ? "max-xl:left-[-45%] max-sm:left-[-100%]" : "max-xl:left-0"
       } max-xl:top-0 max-xl:h-screen max-xl:w-[45%] max-xl:bg-[#793629] max-sm:w-[100%] max-sm:gap-[1rem]`}
     >

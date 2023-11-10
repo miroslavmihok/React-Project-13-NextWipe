@@ -7,6 +7,7 @@ export function useData() {
 }
 
 export function DataProvider({ children }) {
+  const [isValidated, setIsValidated] = useState(false);
   const [isClosed, setIsClosed] = useState(true);
   const [currentServer, setCurrentServer] = useState({});
   const [search, setSearch] = useState("");
@@ -39,6 +40,8 @@ export function DataProvider({ children }) {
         setCurrentServer,
         isClosed,
         setIsClosed,
+        isValidated,
+        setIsValidated,
       }}
     >
       {children}

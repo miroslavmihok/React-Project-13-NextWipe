@@ -1,5 +1,3 @@
-// mongoDBAPI.js
-
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
@@ -8,7 +6,7 @@ const dbName = "server_data";
 const collectionName = "servers";
 
 // Function to fetch data from MongoDB
-const fetchMongoDBData = async () => {
+const handler = async () => {
   try {
     const client = new MongoClient(mongoURL);
     await client.connect();
@@ -19,13 +17,18 @@ const fetchMongoDBData = async () => {
     const data = await collection.find().toArray();
     client.close();
 
-    return data;
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data),
+    };
   } catch (error) {
-    console.error("Error fetching MongoDB data:", error);
-    throw error;
+    return {
+      statusCode: 500,
+      body: error.toString(),
+    };
   }
 };
 
 module.exports = {
-  fetchMongoDBData,
+  handler,
 };

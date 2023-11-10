@@ -4,7 +4,6 @@ const ServerContainer = ({
   name,
   type,
   wipe,
-  fill,
   country,
   groupsize,
   nextwipe,
@@ -16,7 +15,7 @@ const ServerContainer = ({
 
   return (
     <div
-      className="flex w-[100%] cursor-pointer justify-start bg-[#312F2C] py-[0.8rem] max-sm:flex-col max-sm:justify-center"
+      className="flex w-[100%] cursor-pointer justify-start bg-[#312F2C] py-[0.8rem] hover:bg-[#403d39] max-sm:flex-col max-sm:justify-center"
       onClick={onClick}
     >
       <div className="flex w-[50%] min-w-[50%] max-w-[50%] max-sm:w-full max-sm:min-w-full max-sm:max-w-full max-sm:justify-center">
@@ -94,7 +93,7 @@ const ServerContainer = ({
             navigator.clipboard.writeText(serverAdress);
           }}
         >
-          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[0.8rem] font-bold uppercase text-[#e6dbd1] max-sm:text-[0.75rem]">
+          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[0.8rem] font-bold uppercase text-[#e6dbd1] hover:bg-[#E6DBD1] hover:text-black/70 max-sm:text-[0.75rem]">
             Copy IP
           </h4>
         </button>
@@ -106,7 +105,7 @@ const ServerContainer = ({
             window.open(url, "_blank");
           }}
         >
-          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[0.8rem] font-bold uppercase text-[#e6dbd1]">
+          <h4 className=" cursor-pointer rounded bg-black/30 px-[7px] py-[5px] font-['Poppins'] text-[0.8rem] font-bold uppercase text-[#e6dbd1] hover:bg-[#E6DBD1] hover:text-black/70">
             Connect
           </h4>
         </button>
