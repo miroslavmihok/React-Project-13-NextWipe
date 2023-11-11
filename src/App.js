@@ -21,7 +21,7 @@ function App() {
     const fetchServerData = async () => {
       try {
         if (isValidated) {
-          const response = await fetch("/.netlify/functions/getBmServers");
+          const response = await fetch("/api/getBmServers");
           const data = await response.json();
           setServerData(data);
           setFilteredData(data);

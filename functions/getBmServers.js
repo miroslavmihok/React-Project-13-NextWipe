@@ -13,21 +13,21 @@ const formatTimeDifference = (timeDifference) => {
   const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
   return `${days}d ${hours}h ${minutes}min`;
 };
-console.log("Starting function handler");
-const handler = async () => {
+
+const client = new MongoClient(mongoURL);
+const clientPromise = client.connect();
+
+const handler = async (event) => {
   try {
-    const client = new MongoClient(mongoURL);
-    await client.connect();
-    console.log("Started mongo connection");
-    const db = client.db(dbName);
+    const db = (await clientPromise).db(dbName);
     const collection = db.collection(collectionName);
 
-    const mbData = await collection.find().toArray();
+    const mbData = await collection.find().limit(1).toArray();
     client.close();
-    console.log("closed mongo connection");
+
     // server_ids from the MongoDB data
     const desiredServerIds = mbData.map((server) => server.server_id);
-    console.log("desiredServerIds", desiredServerIds);
+
     const response = await fetch(
       `https://api.battlemetrics.com/servers?page[size]=20&filter[ids][whitelist]=${desiredServerIds.join(
         ",",
