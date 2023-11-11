@@ -14,18 +14,31 @@ const formatTimeDifference = (timeDifference) => {
   return `${days}d ${hours}h ${minutes}min`;
 };
 
-const client = new MongoClient(mongoURL);
-const clientPromise = client.connect();
+const queryDatabase = async (uri, datab, col) => {
+  const client = new MongoClient(uri);
+  const clientPromise = client.connect(uri, {
+    useUnifiedTopology: true,
+  });
 
-const handler = async (event) => {
   try {
-    const db = (await clientPromise).db(dbName);
-    const collection = db.collection(collectionName);
+    const db = (await clientPromise).db(datab);
+    const collection = db.collection(col);
 
-    const mbData = await collection.find().limit(1).toArray();
+    const data = await collection.find().toArray();
     client.close();
 
-    // server_ids from the MongoDB data
+    return data;
+  } catch (error) {
+    return [];
+  }
+};
+
+const handler = async (event, context) => {
+  try {
+    context.callbackWaitsForEmptyEventLoop = false;
+
+    const mbData = await queryDatabase(mongoURL, dbName, collectionName);
+
     const desiredServerIds = mbData.map((server) => server.server_id);
 
     const response = await fetch(
@@ -99,8 +112,8 @@ const handler = async (event) => {
       };
     } else {
       return {
-        statusCode: 500,
-        body: [],
+        statusCode: 200,
+        body: JSON.stringify(mbData),
       };
     }
   } catch (error) {

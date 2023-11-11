@@ -144,6 +144,7 @@ function App() {
   // end of FILTERS
   // ---------------------------------------------------
 
+  // modal for every server
   const dialog = useRef();
 
   const displayModal = () => {
