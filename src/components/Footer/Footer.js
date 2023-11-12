@@ -2,27 +2,26 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="flex h-20 items-center justify-between bg-[#1a242a]  ">
-      <ul className=" mx-auto flex max-w-[70vw] items-center justify-between space-x-12 whitespace-nowrap text-white">
-        <li>
-          <button className="font-['Poppins']">Facebook</button>
-        </li>
-        <li className="hidden font-['Poppins'] md:flex">
-          <button>Imprint</button>
-        </li>
-        <li>
-          <button className="font-['Poppins']">About</button>
-        </li>
-        <li className="hidden font-['Poppins'] md:flex">
-          <button>Privacy Policy</button>
-        </li>
-        <li className="hidden font-['Poppins'] lg:flex">
-          <button>Terms and Conditions</button>
-        </li>
-        <li className="hidden font-['Poppins'] md:flex">
-          <button>Contact</button>
-        </li>
-      </ul>
+    <div className="hidden flex-col justify-around bg-[#1a242a] py-[3rem] max-xl:flex">
+      <p className="px-[4rem] pb-[1rem] text-center font-['Poppins'] text-[12px] font-[600] text-[#E6DBD1]">
+        This site is not affiliated with, nor endorsed by{" "}
+        <b className="font-['Poppins'] text-[#9c392D]">
+          <button href="https://facepunch.com/">Facepunch Studios LTD</button>
+        </b>{" "}
+        . All trademarks belong to their respective owners and are used for
+        information only. That awesome Rust font was created by{" "}
+        <b className="font-['Poppins'] text-[#9c392D]">
+          <button href="https://www.dafont.com/ben-kohan.d5358">
+            Ben Kohan
+          </button>
+        </b>{" "}
+        .
+      </p>
+      <p className="px-[30px] text-center font-['Poppins'] text-[12px] font-[600] text-[#E6DBD1]">
+        <button href="#">Imprint</button> · Terms And Conditions · Privacy
+        Policy
+      </p>
+      <p className="m-0 flex font-['Poppings']"></p>
     </div>
   );
 };
