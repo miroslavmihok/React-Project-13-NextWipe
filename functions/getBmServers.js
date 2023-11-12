@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
 const mongoURL = process.env.MONGO_URL;
@@ -15,14 +15,10 @@ const formatTimeDifference = (timeDifference) => {
 };
 
 const queryDatabase = async (uri, datab, col) => {
-  const client = new MongoClient(uri, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
+  const client = new MongoClient(uri);
+  const clientPromise = client.connect(uri, {
+    useUnifiedTopology: true,
   });
-  const clientPromise = client.connect();
 
   try {
     const db = (await clientPromise).db(datab);
