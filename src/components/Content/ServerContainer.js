@@ -48,11 +48,11 @@ const ServerContainer = ({
         <div className="ml-5 flex min-w-full max-w-full items-center justify-start gap-[10px] max-sm:ml-0 max-sm:min-w-full max-sm:max-w-full max-sm:px-[1rem]">
           <div className="mb-auto min-w-[6%] max-sm:hidden">{country}</div>
           <div className="flex min-w-[94%] max-w-[94%] flex-col justify-between gap-[14px]">
-            <h1 className="inline-block truncate font-['Poppins'] text-[14px] font-semibold text-[#E6DBD1] max-sm:inline-block max-sm:truncate max-sm:text-center">
+            <h1 className="inline-block truncate font-['Poppins'] text-[1rem] font-semibold text-[#E6DBD1] max-sm:inline-block max-sm:truncate max-sm:text-center">
               {name}
             </h1>
             <div className="flex justify-start gap-[10px] max-sm:justify-center">
-              <h1 className="font-['Poppins'] text-[12px] font-semibold text-[#E6DBD1]">
+              <h1 className="font-['Poppins'] text-[0.8rem] font-semibold text-[#E6DBD1]">
                 <span className="font-['Poppins'] text-[#727272]">
                   Last Wipe{" "}
                 </span>
@@ -72,7 +72,7 @@ const ServerContainer = ({
                 </span>
                 <span className="font-['Poppins'] text-[#9c392D]">{fill}</span>
               </h1> */}
-              <div className="h-max rounded bg-[#22415B] px-[5px] py-[3px] font-['Poppins'] text-[11px] font-[600] capitalize leading-[11px]  text-[#E6dbd1]">
+              <div className="h-max rounded bg-[#22415B] px-[0.3rem] py-[0.3rem] font-['Poppins'] text-[0.8rem] font-[600] capitalize leading-[11px]  text-[#E6dbd1]">
                 {type}
               </div>
             </div>

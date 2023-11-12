@@ -1,9 +1,9 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 require("dotenv").config();
 
 const mongoURL = process.env.MONGO_URL;
-const dbName = "server_data";
-const collectionName = "servers";
+const dbName = process.env.DATABASE;
+const collectionName = process.env.COLLECTION;
 
 const formatTimeDifference = (timeDifference) => {
   const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
@@ -15,10 +15,14 @@ const formatTimeDifference = (timeDifference) => {
 };
 
 const queryDatabase = async (uri, datab, col) => {
-  const client = new MongoClient(uri);
-  const clientPromise = client.connect(uri, {
-    useUnifiedTopology: true,
+  const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
   });
+  const clientPromise = client.connect();
 
   try {
     const db = (await clientPromise).db(datab);
@@ -32,7 +36,6 @@ const queryDatabase = async (uri, datab, col) => {
     return [];
   }
 };
-
 const handler = async (event, context) => {
   try {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -111,10 +114,7 @@ const handler = async (event, context) => {
         body: JSON.stringify(combinedServerData),
       };
     } else {
-      return {
-        statusCode: 200,
-        body: JSON.stringify(mbData),
-      };
+      return [];
     }
   } catch (error) {
     return {

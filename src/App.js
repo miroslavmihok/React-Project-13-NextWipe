@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState, useRef } from "react";
 import Header from "./components/Header/Logo/Header";
+import Footer from "./components/Footer/Footer";
 import Servers from "./components/Content/Servers";
 import Filters from "./components/Filters/Filters";
 import ServerModal from "./components/_Modal/ServerModal";
@@ -147,13 +148,13 @@ function App() {
   // modal for every server
   const dialog = useRef();
 
-  const displayModal = () => {
+  const displayServerModal = () => {
     dialog.inert = true;
     dialog.current.showModal();
     dialog.inert = false;
   };
 
-  const handleClose = () => {
+  const handleServerModalClose = () => {
     dialog.current.close();
   };
 
@@ -161,12 +162,12 @@ function App() {
     <>
       {!isValidated && <Validator />}
       {isValidated && (
-        <div className="h-fit max-h-[100vh] w-full bg-[url('./assets/photos/2853513.png')] bg-cover max-xl:max-h-fit">
+        <div className="h-fit max-h-[100vh] w-full bg-[url('./assets/photos/5.png')] bg-cover max-xl:max-h-fit">
           <div className="flex h-[100vh] w-[100%] bg-[#808080]/40 max-xl:h-full max-xl:flex-col">
             <ServerModal
               ref={dialog}
               server={currentServer}
-              onClose={handleClose}
+              onClose={handleServerModalClose}
             />
             <FilterButton />
             <Header />
@@ -175,8 +176,9 @@ function App() {
               servers={filteredByName}
               isEmpty={isEmpty}
               dataLoaded={dataLoaded}
-              onTransferServerData={displayModal}
+              onTransferServerData={displayServerModal}
             />
+            <Footer />
           </div>
         </div>
       )}

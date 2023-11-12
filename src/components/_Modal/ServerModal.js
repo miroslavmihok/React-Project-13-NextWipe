@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef } from "react";
-import img from "../../assets/photos/bg-desc.jpg";
+import img from "../../assets/photos/6.png";
 
 const ServerModal = forwardRef(function ServerModal({ server, onClose }, ref) {
   const dialogRef = useRef(null);
@@ -26,7 +26,9 @@ const ServerModal = forwardRef(function ServerModal({ server, onClose }, ref) {
       <div
         ref={dialogRef}
         className="flex h-[12rem] w-full flex-col justify-between px-[1rem] pt-[0.5rem]"
-        style={{ background: `url(${img}) no-repeat bottom/cover` }}
+        style={{
+          background: `linear-gradient(rgb(0,0,0,0.1), rgb(0,0,0,0.8)),url(${img}) no-repeat center/cover`,
+        }}
       >
         <form method="dialog" className="flex justify-end">
           <button className="font-['Poppins'] outline-0">
