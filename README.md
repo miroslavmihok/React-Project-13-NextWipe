@@ -1,6 +1,6 @@
 ## Project title: NextWipe
 
-<img src="https://photos.app.goo.gl/EKZ8smWqXUhwxW6H8" width="300px">
+<img src="https://lh3.googleusercontent.com/pw/ADCreHcTJcFQN7XzdmuhYtbGsV_7oCb5JliIn7pIBMf_CJdkM1M3NVcqs6M-gGzJ6U1uz32WLia57y8eiw0fQkY26YEn6Hpcmgjp_ZZx1RMtKGWXrNObD1E8HWFvK5fFLGms6nvzl_xe7Vo436aCFPsBir9w=w2239-h1244-s-no-gm?authuser=0" width="300px">
 
 ### Description:
 NextWipe is an interactive tool designed for Rust game enthusiasts to easily discover servers based on specific criteria such as server type, wipe schedule, and group size. The platform provides essential server information, including a direct connect feature through a Steam link. Users can efficiently filter and explore servers, and detailed information can be accessed with a simple click on the server container.
