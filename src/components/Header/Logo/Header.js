@@ -43,7 +43,8 @@ const Header = () => {
               Ben Kohan
             </button>
           </b>{" "}
-          .
+          .<br></br>
+          <b className="font-['Poppins']">(THIS IS ONLY A PORTFOLIO PROJECT)</b>
         </p>
         <p className="px-[30px] text-center font-['Poppins'] text-[12px] font-[600] text-[#E6DBD1]">
           <button href="#">Imprint</button> · Terms And Conditions · Privacy
