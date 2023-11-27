@@ -6,7 +6,6 @@ import Servers from "./components/Content/Servers";
 import Filters from "./components/Filters/Filters";
 import ServerModal from "./components/_Modal/ServerModal";
 import FilterButton from "./components/Filters/FilterButton/FilterButton";
-import Validator from "./components/Validator/Validator";
 import { useData } from "./dataContext/dataContext";
 
 function App() {
@@ -15,25 +14,22 @@ function App() {
   const [isEmpty, setIsEmpty] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  const { filterData, setFilterData, search, currentServer, isValidated } =
-    useData();
+  const { filterData, setFilterData, search, currentServer } = useData();
 
   useEffect(() => {
     const fetchServerData = async () => {
       try {
-        if (isValidated) {
-          const response = await fetch("/api/getBmServers");
-          const data = await response.json();
-          setServerData(data);
-          setFilteredData(data);
-          setDataLoaded(true);
-        }
+        const response = await fetch("/api/getBmServers");
+        const data = await response.json();
+        setServerData(data);
+        setFilteredData(data);
+        setDataLoaded(true);
       } catch (error) {
         console.error("Error fetching server data:", error);
       }
     };
     fetchServerData();
-  }, [isValidated]);
+  }, []);
 
   useEffect(() => {
     filterServerData(serverData);
@@ -159,30 +155,25 @@ function App() {
   };
 
   return (
-    <>
-      {!isValidated && <Validator />}
-      {isValidated && (
-        <div className="h-fit max-h-[100vh] w-full bg-[url('./assets/photos/5.png')] bg-cover max-xl:max-h-fit">
-          <div className="flex h-[100vh] w-[100%] bg-[#808080]/40 max-xl:h-full max-xl:flex-col">
-            <ServerModal
-              ref={dialog}
-              server={currentServer}
-              onClose={handleServerModalClose}
-            />
-            <FilterButton />
-            <Header />
-            <Filters onClearFilters={clearFiltersAndReset} />
-            <Servers
-              servers={filteredByName}
-              isEmpty={isEmpty}
-              dataLoaded={dataLoaded}
-              onTransferServerData={displayServerModal}
-            />
-            <Footer />
-          </div>
-        </div>
-      )}
-    </>
+    <div className="h-fit max-h-[100vh] w-full bg-[url('./assets/photos/5.png')] bg-cover max-xl:max-h-fit">
+      <div className="flex h-[100vh] w-[100%] bg-[#808080]/40 max-xl:h-full max-xl:flex-col">
+        <ServerModal
+          ref={dialog}
+          server={currentServer}
+          onClose={handleServerModalClose}
+        />
+        <FilterButton />
+        <Header />
+        <Filters onClearFilters={clearFiltersAndReset} />
+        <Servers
+          servers={filteredByName}
+          isEmpty={isEmpty}
+          dataLoaded={dataLoaded}
+          onTransferServerData={displayServerModal}
+        />
+        <Footer />
+      </div>
+    </div>
   );
 }
 
